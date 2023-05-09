@@ -15,23 +15,17 @@
 		embedded_svc.settings.displayHelpButton = true; //Or false
 		embedded_svc.settings.language = ''; //For example, enter 'en' or 'en-US'
 
-		//embedded_svc.settings.defaultMinimizedText = '...'; //(Defaults to Chat with an Expert)
-		//embedded_svc.settings.disabledMinimizedText = '...'; //(Defaults to Agent Offline)
-
-		//embedded_svc.settings.loadingText = ''; //(Defaults to Loading)
-		//embedded_svc.settings.storageDomain = 'yourdomain.com'; //(Sets the domain for your deployment so that visitors can navigate subdomains during a chat session)
-
-		// Settings for Chat
-		//embedded_svc.settings.directToButtonRouting = function(prechatFormData) {
-			// Dynamically changes the button ID based on what the visitor enters in the pre-chat form.
-			// Returns a valid button ID.
-		//};
-		//embedded_svc.settings.prepopulatedPrechatFields = {}; //Sets the auto-population of pre-chat form fields
-		//embedded_svc.settings.fallbackRouting = []; //An array of button IDs, user IDs, or userId_buttonId
-		//embedded_svc.settings.offlineSupportMinimizedText = '...'; //(Defaults to Contact Us)
-
 		embedded_svc.settings.enabledFeatures = ['LiveAgent'];
 		embedded_svc.settings.entryFeature = 'LiveAgent';
+	
+		window.addEventListener("message", receiveMessage, false);
+			function receiveMessage(event) {
+			var payload = event.data;
+
+			if(payload && payload.type === "chasitor.sendMessage") {
+				embedded_svc.postMessage("chasitor.sendMessage", payload.message);
+			}
+		};
 
 		embedded_svc.init(
 			'https://test-ec-dev-ed.develop.my.salesforce.com',
