@@ -17,6 +17,12 @@
 
 		embedded_svc.settings.enabledFeatures = ['LiveAgent'];
 		embedded_svc.settings.entryFeature = 'LiveAgent';
+		embedded_svc.settings.prepopulatedPrechatFields = {
+		    FirstName: "Test",
+		    LastName: "Test",
+		    Email: "test@test.com",
+		    Subject: "Testing"
+		};
 	
 		window.addEventListener("message", receiveMessage, false);
 			function receiveMessage(event) {
